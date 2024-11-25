@@ -6,8 +6,8 @@ from mysql.connector import Error
 
 #[ADM, NAME, DOB, STREAM]
 def createDB():
-    mydb=mysql.connector.connect(host="localhost", user="root", passwd="tiger")
-    mycursor=mydb.cursor()
+    mydb = mysql.connector.connect(host="localhost", user="root", passwd="tiger")
+    mycursor = mydb.cursor()
     mycursor.execute("create database SCHOOL89")
     mydb.commit()
     mycursor.close()
