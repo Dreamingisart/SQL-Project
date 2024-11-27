@@ -1,7 +1,7 @@
 #PROGRAM
 
 import sys
-import mysql.connector
+import mysql.connector 
 from mysql.connector import Error 
 
 #[ADM, NAME, DOB, STREAM]
@@ -13,26 +13,25 @@ def createDB():
     mycursor.close()
     mydb.close()
 
-    
+# FUNCTION FOR CREATING TABLE  
 def createTable():
     mydb=mysql.connector.connect(host="localhost", user="root", password="tiger", database="school89")
     mycursor=mydb.cursor()
     mycursor.execute("create table student(\
-                 Adm int(5) primary key,\
-                 Name varchar(35),\
-                 DOB date, stream varchar(15))")
+                    Adm int(5) primary key,\
+                    Name varchar(35),\
+                    DOB date,\
+                    stream varchar(15))")
     #mycursor.commit()
     mycursor.close()
     mydb.close()
 
-
+#FUNCTION FOR FINDING ADMIN
 def AdmSearch():
-    mydb=mysql.connector.connect(host="localhost", user='root',\
-                            passwd='tiger', database='school89')
-    cursor=mydb.cursor()
-    A=int(input("Enter Adm No to search: "))
-    sql="select * from student where adm={}".format(A)
-    #sql="select * from student where adm="+str(A)
+    mydb = mysql.connector.connect(host="localhost", user='root', passwd='tiger', database='school89')
+    cursor = mydb.cursor()
+    A = int(input("Enter Adm No to search: "))
+    sql = "select * from student where adm={}".format(A)              
     cursor.execute(sql)
     for row in cursor:
         print(row)
@@ -41,24 +40,22 @@ def AdmSearch():
 
 
 def StreamSearch():
-    mydb=mysql.connector.connect(host="localhost", user='root',\
-                            passwd='tiger', database='school89')
-    cursor=mydb.cursor()
-    S=input("Enter Stream to search: ")
-    sql="select * from student where stream='{}'".format(S)
-    #sql="select * from student where stream="+str('\'')+S+str('\'')
+    mydb = mysql.connector.connect(host="localhost", user='root', passwd='tiger', database='school89')
+    cursor = mydb.cursor()
+    S = input("Enter Stream to search: ")
+    sql = "select * from student where stream='{}'".format(S)
     cursor.execute(sql)
-    data=cursor.fetchall()
+    data = cursor.fetchall()
     for row in data:
         print(row)
     cursor.close()
     mydb.close()
 
+
 def YearSearch():
-    mydb=mysql.connector.connect(host="localhost", user='root',\
-                            passwd='tiger', database='school89')
-    cursor=mydb.cursor()
-    sql="select * from student where dob like '2000%'"
+    mydb = mysql.connector.connect(host="localhost", user='root', passwd='tiger', database='school89')
+    cursor = mydb.cursor()
+    sql = "select * from student where dob like '2000%'"
     cursor.execute(sql)
     for row in cursor:
         print(row)
@@ -67,14 +64,13 @@ def YearSearch():
 
 
 def Insert():
-    mydb=mysql.connector.connect(host="localhost", user="root",\
-                            passwd="tiger", database="school89")
-    cursor=mydb.cursor()
-    Adm=int(input("Adm No: "))
-    Name=input("Name: ")
-    DOB=input("DOB(yyyy-mm-dd): ")
-    stream=input("Stream: ")
-    sql="insert into student values\
+    mydb = mysql.connector.connect(host="localhost", user="root", passwd="tiger", database="school89")
+    cursor = mydb.cursor()
+    Adm = int(input("Adm No: "))
+    Name = input("Name: ")
+    DOB = input("DOB(yyyy-mm-dd): ")
+    stream = input("Stream: ")
+    sql = "insert into student values\
     ({},'{}','{}','{}')".format(Adm, Name, DOB, stream)
     cursor.execute(sql)
     mydb.commit()
@@ -83,11 +79,10 @@ def Insert():
 
 
 def Delete():
-    mydb=mysql.connector.connect(host="localhost", user='root',\
-                            passwd='tiger', database='school89')
-    cursor=mydb.cursor()
-    A=int(input("Enter Adm No to delete: "))
-    sql="delete from student where adm={}".format(A)
+    mydb = mysql.connector.connect(host="localhost", user='root', passwd='tiger', database='school89')
+    cursor = mydb.cursor()
+    A = int(input("Enter Adm No to delete: "))
+    sql = "delete from student where adm={}".format(A)
     cursor.execute(sql)
     mydb.commit()
     cursor.close()
@@ -95,12 +90,11 @@ def Delete():
 
 
 def Modify():
-    mydb=mysql.connector.connect(host="localhost", user='root',\
-                            passwd='tiger', database='school89')
+    mydb = mysql.connector.connect(host="localhost", user='root', passwd='tiger', database='school89')
     cursor=mydb.cursor()
-    A=int(input("Enter Adm No to update record: "))
-    N=input("Enter correct name: ")
-    sql="update student set name='{}' where adm={}".format(N,A)
+    A = int(input("Enter Adm No to update record: "))
+    N = input("Enter correct name: ")
+    sql = "update student set name='{}' where adm={}".format(N,A)
     cursor.execute(sql)
     mydb.commit()
     cursor.close()
@@ -109,17 +103,17 @@ def Modify():
 
 def Display():
     try:
-        db = mysql.connector.connect(host='localhost',\
-                database='school89', user='root', password='tiger')
+        db = mysql.connector.connect(host='localhost', database='school89', user='root', password='tiger')
         if db.is_connected():
             print('Connected to MySQL database')
+    
     except Error as e:
     	print(e)
-    	return
+        return
     	#sys.exit() ->to kill program execution
-    pysql=db.cursor()
+    pysql = db.cursor()
     pysql.execute("select * from student")
-    data=pysql.fetchall()
+    data = pysql.fetchall()
     for row in data:
     	print(row)
     pysql.close()
