@@ -2,7 +2,8 @@
 
 import sys
 import mysql.connector 
-from mysql.connector import Error 
+from mysql.connector 
+import Error 
 
 #[ADM, NAME, DOB, STREAM]
 def createDB():
